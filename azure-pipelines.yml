@@ -1,21 +1,34 @@
 trigger:
-- main
+  branches:
+    include:
+      - main
 
 pool:
-  name: 'Default'   # tu agent pool
+  name: 'Default'
+
+variables:
+  projectFolder: '$(Build.SourcesDirectory)'
+  outputFolder: '$(Build.ArtifactStagingDirectory)\Packages'
+  orchestratorConnection: 'UiPath-Orchestrator'
+  orchestratorFolder: 'Comercio\Cartera'
 
 steps:
-
-- task: UiPathDeploy@3
-  displayName: 'Pack UiPath Project'
+- task: UiPathPack@3
+  displayName: 'Pack UiPath project'
   inputs:
     versionType: 'AutoVersion'
-    projectPath: '$(Build.SourcesDirectory)'
-    outputPath: '$(Build.ArtifactStagingDirectory)'
+    projectJsonPath: '$(projectFolder)\project.json'
+    outputPath: '$(outputFolder)'
+    outputType: 'Process'
+    orchestratorConnection: '$(orchestratorConnection)'
+    traceLevel: 'Information'
 
-- task: UiPathDeploy@2
-  displayName: 'Deploy to UiPath Orchestrator'
+- task: UiPathDeploy@3
+  displayName: 'Deploy package to Orchestrator'
   inputs:
-    orchestratorConnection: 'UiPath-Automation'
-    packagesPath: '$(Build.ArtifactStagingDirectory)'
-    folderName: 'Servimeters/Comercio/Cartera'
+    orchestratorConnection: '$(orchestratorConnection)'
+    packagesPath: '$(outputFolder)'
+    folderName: '$(orchestratorFolder)'
+    traceLevel: 'Information'
+
+
