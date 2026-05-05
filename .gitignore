@@ -1,0 +1,26 @@
+# Archivos de entorno (credenciales)
+.env
+.env.local
+.env.*.local
+
+# Llaves y certificados
+*.pem
+*.key
+*.crt
+
+# Logs
+*.log
+
+# Node (si usas)
+node_modules/
+
+# Python (si usas)
+__pycache__/
+*.pyc
+
+# VSCode
+.vscode/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

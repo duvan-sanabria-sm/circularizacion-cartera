@@ -1,0 +1,38 @@
+@startuml
+title Migración de Assets UiPath (Pipeline + API)
+
+skinparam padding 20
+skinparam ParticipantPadding 30
+skinparam ArrowThickness 1.5
+skinparam SequenceMessageAlign center
+
+actor "Desarrollador" as Dev
+
+participant Git
+participant "Azure Pipeline" as Pipeline
+participant "PowerShell Script" as PS
+participant "UiPath Identity" as Auth
+participant "UiPath Orchestrator\n(Nueva Cuenta)" as Orchestrator
+
+Dev -> Git : Paso 1:\nSube assets.json + scripts
+
+Git -> Pipeline : Paso 2:\nTrigger pipeline
+
+Pipeline -> PS : Paso 3:\nEjecuta import-assets.ps1
+
+PS -> Auth : Paso 4:\nPOST /connect/token\n(client_credentials)
+Auth --> PS : access_token
+
+PS -> Git : Paso 5:\nLee assets.json
+
+== Paso 6: Creación de Assets ==
+
+loop Por cada asset
+    PS -> Orchestrator : Paso 6.1:\nPOST /odata/Assets\n(Header: FolderId)
+    Orchestrator --> PS : OK / Error
+end
+
+PS --> Pipeline : Paso 7:\nResultado ejecución
+Pipeline --> Dev : Paso 8:\nLogs
+
+@enduml
