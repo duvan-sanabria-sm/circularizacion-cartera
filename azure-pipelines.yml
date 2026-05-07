@@ -10,11 +10,29 @@ variables:
   projectFolder: '$(Build.SourcesDirectory)'
   outputFolder: '$(Build.ArtifactStagingDirectory)\Packages'
   orchestratorConnection: 'UiPath-Orchestrator'
-  orchestratorFolder: 'Comercio\Cartera'
+  orchestratorFolder: 'Servimeters\Comercio\Cartera'
 
 steps:
+- task: UiPathPack@3
+  displayName: 'Pack UiPath project'
+  inputs:
+    versionType: 'AutoVersion'
+    projectJsonPath: '$(projectFolder)\project.json'
+    outputPath: '$(outputFolder)'
+    outputType: 'Process'
+    orchestratorConnection: '$(orchestratorConnection)'
+    traceLevel: 'Information'
+
+- task: UiPathDeploy@3
+  displayName: 'Deploy package to Orchestrator'
+  inputs:
+    orchestratorConnection: '$(orchestratorConnection)'
+    packagesPath: '$(outputFolder)'
+    folderName: '$(orchestratorFolder)'
+    traceLevel: 'Information'
+
 - task: PowerShell@2
-  displayName: 'Import assets to new Orchestrator account'
+  displayName: 'Create folders and import assets to new Orchestrator account'
   inputs:
     targetType: 'filePath'
     filePath: '$(Build.SourcesDirectory)/orchestrator/scripts/import-assets.ps1'
@@ -25,5 +43,6 @@ steps:
     UIPATH_CLIENT_ID: $(UIPATH_CLIENT_ID)
     UIPATH_CLIENT_SECRET: $(UIPATH_CLIENT_SECRET)
     UIPATH_FOLDER_ID: $(UIPATH_FOLDER_ID)
+    UIPATH_FOLDER_PATH: $(UIPATH_FOLDER_PATH)
 
 
