@@ -35,7 +35,12 @@ $headers = @{
 # ==============================
 # 2. Leer JSON
 # ==============================
-$assetsPath = "$(Build.SourcesDirectory)/orchestrator/assets.json"
+$sourceDir = $env:BUILD_SOURCESDIRECTORY
+if (-not $sourceDir) {
+    Write-Host "ERROR: BUILD_SOURCESDIRECTORY no está definido."
+    exit 1
+}
+$assetsPath = Join-Path $sourceDir 'orchestrator\assets\assets.json'
 $assets = Get-Content $assetsPath | ConvertFrom-Json
 
 # ==============================
