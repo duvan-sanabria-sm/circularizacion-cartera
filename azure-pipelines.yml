@@ -13,7 +13,7 @@ variables:
   orchestratorFolder: 'Servimeters\Comercio\Cartera'
 
 steps:
-- task: UiPathPack@3
+- task: UiPathPack@6
   displayName: 'Pack UiPath project'
   inputs:
     versionType: 'AutoVersion'
@@ -23,7 +23,7 @@ steps:
     orchestratorConnection: '$(orchestratorConnection)'
     traceLevel: 'Information'
 
-- task: UiPathDeploy@3
+- task: UiPathDeploy@6
   displayName: 'Deploy package to Orchestrator'
   inputs:
     orchestratorConnection: '$(orchestratorConnection)'
