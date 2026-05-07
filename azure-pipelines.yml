@@ -13,22 +13,17 @@ variables:
   orchestratorFolder: 'Comercio\Cartera'
 
 steps:
-- task: UiPathPack@3
-  displayName: 'Pack UiPath project'
+- task: PowerShell@2
+  displayName: 'Import assets to new Orchestrator account'
   inputs:
-    versionType: 'AutoVersion'
-    projectJsonPath: '$(projectFolder)\project.json'
-    outputPath: '$(outputFolder)'
-    outputType: 'Process'
-    orchestratorConnection: '$(orchestratorConnection)'
-    traceLevel: 'Information'
-
-- task: UiPathDeploy@3
-  displayName: 'Deploy package to Orchestrator'
-  inputs:
-    orchestratorConnection: '$(orchestratorConnection)'
-    packagesPath: '$(outputFolder)'
-    folderName: '$(orchestratorFolder)'
-    traceLevel: 'Information'
+    targetType: 'filePath'
+    filePath: '$(Build.SourcesDirectory)/orchestrator/scripts/import-assets.ps1'
+    pwsh: true
+  env:
+    UIPATH_ORG: $(UIPATH_ORG)
+    UIPATH_TENANT: $(UIPATH_TENANT)
+    UIPATH_CLIENT_ID: $(UIPATH_CLIENT_ID)
+    UIPATH_CLIENT_SECRET: $(UIPATH_CLIENT_SECRET)
+    UIPATH_FOLDER_ID: $(UIPATH_FOLDER_ID)
 
 
