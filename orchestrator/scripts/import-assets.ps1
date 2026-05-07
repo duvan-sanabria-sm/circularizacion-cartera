@@ -41,7 +41,27 @@ if (-not $sourceDir) {
     exit 1
 }
 $assetsPath = Join-Path $sourceDir 'orchestrator\assets\assets.json'
-$assets = Get-Content $assetsPath | ConvertFrom-Json
+Write-Host "Leyendo assets desde: $assetsPath"
+if (-not (Test-Path $assetsPath)) {
+    Write-Host "ERROR: no se encontró el archivo de assets en la ruta especificada."
+    exit 1
+}
+$assetsJson = Get-Content $assetsPath -Raw | ConvertFrom-Json
+if ($assetsJson -eq $null) {
+    Write-Host "ERROR: no se pudo leer el archivo de assets"
+    exit 1
+}
+$assets = if ($assetsJson.PSObject.Properties.Name -contains 'value') { $assetsJson.value } else { $assetsJson }
+$assets = @($assets)
+if ($assets.Count -eq 0) {
+    Write-Host "ERROR: no se encontró ningún asset en el JSON"
+    exit 1
+}
+Write-Host "Assets encontrados: $($assets.Count)"
+for ($i = 0; $i -lt $assets.Count; $i++) {
+    $asset = $assets[$i]
+    Write-Host "Asset[$i] Nombre:'$($asset.Name)' Key:'$($asset.Key)' Tipo:'$($asset.ValueType)'"
+}
 
 # ==============================
 # 3. Endpoint
