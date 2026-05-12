@@ -10,7 +10,7 @@ variables:
   projectFolder: '$(Build.SourcesDirectory)'
   outputFolder: '$(Build.ArtifactStagingDirectory)\Packages'
   orchestratorConnection: 'UiPath-Orchestrator-SoportePruebas'
-  orchestratorFolder: 'Servimeters\Comercio\Cartera'
+  orchestratorFolder: 'Default'
 
 steps:
 - task: UiPathPack@6
