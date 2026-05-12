@@ -9,7 +9,7 @@ pool:
 variables:
   projectFolder: '$(Build.SourcesDirectory)'
   outputFolder: '$(Build.ArtifactStagingDirectory)\Packages'
-  orchestratorConnection: 'UiPath-Orchestrator'
+  orchestratorConnection: 'UiPath-Orchestrator-SoportePruebas'
   orchestratorFolder: 'Servimeters\Comercio\Cartera'
 
 steps:
