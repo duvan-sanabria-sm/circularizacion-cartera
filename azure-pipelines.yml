@@ -10,7 +10,6 @@ variables:
   projectFolder: '$(Build.SourcesDirectory)'
   outputFolder: '$(Build.ArtifactStagingDirectory)\Packages'
   orchestratorConnection: 'UiPath-Orchestrator-SoportePruebas'
-  orchestratorFolder: '$(UIPATH_FOLDER_PATH)'
 
 steps:
 - task: UiPathPack@6
@@ -28,10 +27,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      if ([string]::IsNullOrWhiteSpace("$(orchestratorFolder)") -or "$(orchestratorFolder)" -eq '$(UIPATH_FOLDER_PATH)') {
+      if ([string]::IsNullOrWhiteSpace($env:UIPATH_FOLDER_PATH)) {
         Write-Error "UIPATH_FOLDER_PATH must be defined with the Orchestrator folder full path, for example: Servimeters\Comercio\Cartera"
       }
-      Write-Host "Deploying to Orchestrator folder: $(orchestratorFolder)"
+      Write-Host "Deploying to Orchestrator folder: $env:UIPATH_FOLDER_PATH"
+  env:
+    UIPATH_FOLDER_PATH: $(UIPATH_FOLDER_PATH)
 
 - task: PowerShell@2
   displayName: 'Create folders and import assets to new Orchestrator account'
@@ -52,7 +53,7 @@ steps:
   inputs:
     orchestratorConnection: '$(orchestratorConnection)'
     packagesPath: '$(outputFolder)'
-    folderName: '$(orchestratorFolder)'
+    folderName: '$(UIPATH_FOLDER_PATH)'
     traceLevel: 'Information'
 
 
