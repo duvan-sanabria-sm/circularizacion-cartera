@@ -2180,13 +2180,13 @@
                                                   <av:Size x:Key="ShapeSize">110,70</av:Size>
                                                 </scg:Dictionary>
                                               </sap:WorkflowViewStateService.ViewState>
-                                              <Sequence DisplayName="FinSecuencia" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Sequence_1031">
+                                              <Sequence DisplayName="FinSecuencia" sap:VirtualizedContainerService.HintSize="564,971" sap2010:WorkflowViewState.IdRef="Sequence_1031">
                                                 <sap:WorkflowViewStateService.ViewState>
                                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                                   </scg:Dictionary>
                                                 </sap:WorkflowViewStateService.ViewState>
-                                                <Assign sap:VirtualizedContainerService.HintSize="530,113" sap2010:WorkflowViewState.IdRef="Assign_316">
+                                                <Assign sap:VirtualizedContainerService.HintSize="530,175" sap2010:WorkflowViewState.IdRef="Assign_316">
                                                   <Assign.To>
                                                     <OutArgument x:TypeArguments="x:Boolean">[isFinish]</OutArgument>
                                                   </Assign.To>
@@ -2194,7 +2194,7 @@
                                                     <InArgument x:TypeArguments="x:Boolean">True</InArgument>
                                                   </Assign.Value>
                                                 </Assign>
-                                                <umab:ExchangeApplicationCard SharedMailbox="{x:Null}" Account="analista.creditoycartera@servimeters.com" ConnectionAccountName="duvan.sanabria@servimeters.com" ConnectionId="c72f355e-58c8-458d-85ef-e65d762eb083" DisplayName="Use Outlook 365" EmailAddress="analista.creditoycartera@servimeters.com" sap:VirtualizedContainerService.HintSize="530,730" sap2010:WorkflowViewState.IdRef="ExchangeApplicationCard_18" UseConnectionService="True">
+                                                <umab:ExchangeApplicationCard SharedMailbox="{x:Null}" Account="analista.creditoycartera@servimeters.com" ConnectionAccountName="duvan.sanabria@servimeters.com" ConnectionId="c72f355e-58c8-458d-85ef-e65d762eb083" DisplayName="Use Outlook 365" EmailAddress="analista.creditoycartera@servimeters.com" sap:VirtualizedContainerService.HintSize="530,736" sap2010:WorkflowViewState.IdRef="ExchangeApplicationCard_18" UseConnectionService="True">
                                                   <umab:ExchangeApplicationCard.ApplicationId>
                                                     <InArgument x:TypeArguments="x:String">
                                                       <Literal x:TypeArguments="x:String" Value="" />
