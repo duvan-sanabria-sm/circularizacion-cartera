@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iMt7pXqk1QY=",
+  "dgSpecHash": "qVZf6eHAUPY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\duvan.sanabria\\OneDrive - Servimeters\\Documentos\\Robotización\\UiPath\\robot_circularizacion-cartera\\.local\\",
+  "projectFilePath": "C:\\Users\\duvan.sanabria\\Documents\\Tablero Personal 2026\\10 \uD83E\uDD16 Automatizaciones y Software\\Proyectos Ejecutables\\UiPath\\robot_circularizacion-cartera\\.local\\",
   "expectedPackageFiles": [
     "C:\\Users\\duvan.sanabria\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\duvan.sanabria\\.nuget\\packages\\azure.core\\1.18.0\\azure.core.1.18.0.nupkg.sha512",

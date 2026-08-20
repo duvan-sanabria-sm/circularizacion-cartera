@@ -1,25 +1,26 @@
-➡️ [Volver a la documentación principal](../README.md)
+# Reportes y salidas
 
-# 🖥️ Ruta del Servidor
+[Volver a la documentación principal](../../README.md)
 
-A continuación, se define la ruta principal del servidor donde se almacenan los documentos utilizados por el robot.
+## Reportes de entrada
 
----
+| Reporte | Origen | Uso |
+|---|---|---|
+| Cartera | NetSuite, búsqueda `searchid=2010` | Facturas, saldos y datos para circularización. |
+| Proformas | NetSuite, Suitelet `script=496&deploy=1` | Documentos en estado de proforma. |
+| Clientes y correos | NetSuite, búsqueda `searchid=2011` | Nombre, NIT y correo asociado al cliente. |
 
-## 📁 Carpeta Base del Proceso
+Los nombres exactos de los archivos descargados se obtienen en tiempo de ejecución y luego se mueven a la carpeta base.
 
-**Ruta:**
-`\\10.10.15.120\DatosCartera\Estados de Cuenta Automatizado\`
+## Salidas previstas
 
-**Descripción:**  
-En esta carpeta se almacenan todos los documentos con los que trabaja el robot durante la ejecución del proceso, como:
-- Estados de cuenta generados
-- Plantillas de Excel
-- Archivos de entrada
-- Archivos temporales
-- Reportes del proceso
+- Carpeta de ejecución identificada por fecha.
+- Archivo Excel por cliente, nombrado a partir del cliente después de retirar caracteres inválidos.
+- Hoja `ESTADO CUENTA` con facturas y proformas.
+- Fila de total de cartera pendiente, calculada por VBA.
+- Correo con el estado de cuenta adjunto.
+- Notificación de terminación del proceso.
 
-**Notas:**
-- El robot debe tener permisos de lectura y escritura sobre esta ruta.
-- No se debe cambiar la ruta sin actualizar la configuración del robot.
-- Mantener la estructura de carpetas definida para evitar errores en la ejecución.
+## Estado actual
+
+La generación de archivos, el formato VBA y el envío de correos están deshabilitados dentro de `Comment Out`. En el estado actual solo se esperan como salidas los reportes descargados/movidos y la carpeta de trabajo, pero la ejecución termina fallando la condición final del reintento.

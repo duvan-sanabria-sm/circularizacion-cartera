@@ -5,8 +5,22 @@ $org = $env:UIPATH_ORG
 $tenant = $env:UIPATH_TENANT
 $clientId = $env:UIPATH_CLIENT_ID
 $clientSecret = $env:UIPATH_CLIENT_SECRET
-$folderId = $env:UIPATH_FOLDER_ID
 $folderPath = $env:UIPATH_FOLDER_PATH  # ej. "Servimeters\Comercio\Cartera"
+
+$requiredVariables = @{
+    UIPATH_ORG = $org
+    UIPATH_TENANT = $tenant
+    UIPATH_CLIENT_ID = $clientId
+    UIPATH_CLIENT_SECRET = $clientSecret
+    UIPATH_FOLDER_PATH = $folderPath
+}
+
+foreach ($variable in $requiredVariables.GetEnumerator()) {
+    if ([string]::IsNullOrWhiteSpace($variable.Value)) {
+        Write-Host "ERROR: $($variable.Key) no esta definido."
+        exit 1
+    }
+}
 
 # ==============================
 # 1. Obtener token
@@ -20,26 +34,27 @@ $body = @{
     scope = "OR.Assets.Read OR.Assets.Write OR.Folders.Read OR.Folders.Write"
 }
 
-$response = Invoke-RestMethod -Method Post -Uri $tokenUrl -Body $body
+try {
+    $response = Invoke-RestMethod -Method Post -Uri $tokenUrl -Body $body
+}
+catch {
+    Write-Host "ERROR: no se pudo obtener token de UiPath. Valida UIPATH_ORG, UIPATH_CLIENT_ID y UIPATH_CLIENT_SECRET."
+    Write-Host "Exception message: $($_.Exception.Message)"
+    exit 1
+}
 
 $accessToken = $response.access_token
 
 # ==============================
 # Headers
 # ==============================
-if (-not $folderId) {
-    Write-Host "ERROR: UIPATH_FOLDER_ID no está definido. Debes pasar el ID del folder destino." 
-    exit 1
-}
-Write-Host "Usando Folder ID: $folderId"
-$headers = @{
+$folderHeaders = @{
     Authorization = "Bearer $accessToken"
-    "X-UIPATH-OrganizationUnitId" = $folderId
     "Content-Type" = "application/json"
 }
 
 # ==============================
-# Función para crear folder jerárquico
+# Funcion para crear folder jerarquico
 # ==============================
 function Create-FolderHierarchy {
     param (
@@ -48,83 +63,109 @@ function Create-FolderHierarchy {
         [string]$tenant,
         [hashtable]$headers
     )
-    
+
     $foldersUrl = "https://cloud.uipath.com/$org/$tenant/orchestrator_/odata/Folders"
-    
-    # Obtener folders existentes
-    $existingFolders = Invoke-RestMethod -Method Get -Uri $foldersUrl -Headers $headers
-    
+
+    try {
+        $existingFolders = Invoke-RestMethod -Method Get -Uri $foldersUrl -Headers $headers
+    }
+    catch {
+        Write-Host "ERROR: no se pudieron consultar los folders del tenant actual."
+        Write-Host "Exception message: $($_.Exception.Message)"
+        exit 1
+    }
+
     $folderNames = $folderPath -split '\\'
     $currentParentId = $null
-    
+
     foreach ($folderName in $folderNames) {
+        if ([string]::IsNullOrWhiteSpace($folderName)) {
+            continue
+        }
+
         Write-Host "Verificando folder: $folderName bajo ParentId: $currentParentId"
-        
-        # Buscar si ya existe
-        $existingFolder = $existingFolders.value | Where-Object { $_.DisplayName -eq $folderName -and $_.ParentId -eq $currentParentId }
-        
+
+        $matchingFolders = @($existingFolders.value | Where-Object {
+            $_.DisplayName -eq $folderName -and $_.ParentId -eq $currentParentId
+        })
+        $existingFolder = $matchingFolders | Select-Object -First 1
+
         if ($existingFolder) {
             Write-Host "Folder '$folderName' ya existe con ID: $($existingFolder.Id)"
             $currentParentId = $existingFolder.Id
-        } else {
+        }
+        else {
             Write-Host "Creando folder: $folderName"
             $createBody = @{
                 DisplayName = $folderName
                 ParentId = $currentParentId
             } | ConvertTo-Json
-            
+
             try {
                 $newFolder = Invoke-RestMethod -Method Post -Uri $foldersUrl -Headers $headers -Body $createBody
                 Write-Host "Folder '$folderName' creado con ID: $($newFolder.Id)"
                 $currentParentId = $newFolder.Id
-            } catch {
+                $existingFolders.value += $newFolder
+            }
+            catch {
                 Write-Host "Error creando folder '$folderName': $($_.Exception.Message)"
                 exit 1
             }
         }
     }
-    
+
     return $currentParentId
 }
 
 # ==============================
-# 2. Crear folder jerarquía si se especifica
+# 2. Crear/resolver folder jerarquia
 # ==============================
-if ($folderPath) {
-    Write-Host "Creando jerarquía de folders: $folderPath"
-    $createdFolderId = Create-FolderHierarchy -folderPath $folderPath -org $org -tenant $tenant -headers $headers
-    Write-Host "Folder final ID: $createdFolderId"
-    # Actualizar headers con el folder ID correcto
-    $headers["X-UIPATH-OrganizationUnitId"] = $createdFolderId.ToString()
-} else {
-    Write-Host "No se especificó folder path, usando folder ID existente: $folderId"
+Write-Host "Creando/resolviendo jerarquia de folders: $folderPath"
+$folderId = Create-FolderHierarchy -folderPath $folderPath -org $org -tenant $tenant -headers $folderHeaders
+
+if ([string]::IsNullOrWhiteSpace($folderId)) {
+    Write-Host "ERROR: no se pudo resolver el ID del folder destino desde UIPATH_FOLDER_PATH."
+    exit 1
+}
+
+Write-Host "Folder destino resuelto con ID: $folderId"
+
+$assetHeaders = @{
+    Authorization = "Bearer $accessToken"
+    "X-UIPATH-OrganizationUnitId" = $folderId.ToString()
+    "Content-Type" = "application/json"
 }
 
 # ==============================
-# 2. Leer JSON
+# 3. Leer JSON
 # ==============================
 $sourceDir = $env:BUILD_SOURCESDIRECTORY
 if (-not $sourceDir) {
-    Write-Host "ERROR: BUILD_SOURCESDIRECTORY no está definido."
+    Write-Host "ERROR: BUILD_SOURCESDIRECTORY no esta definido."
     exit 1
 }
+
 $assetsPath = Join-Path $sourceDir 'orchestrator\assets\assets.json'
 Write-Host "Leyendo assets desde: $assetsPath"
+
 if (-not (Test-Path $assetsPath)) {
-    Write-Host "ERROR: no se encontró el archivo de assets en la ruta especificada."
+    Write-Host "ERROR: no se encontro el archivo de assets en la ruta especificada."
     exit 1
 }
+
 $assetsJson = Get-Content $assetsPath -Raw | ConvertFrom-Json
 if ($assetsJson -eq $null) {
     Write-Host "ERROR: no se pudo leer el archivo de assets"
     exit 1
 }
+
 $assets = if ($assetsJson.PSObject.Properties.Name -contains 'value') { $assetsJson.value } else { $assetsJson }
 $assets = @($assets)
 if ($assets.Count -eq 0) {
-    Write-Host "ERROR: no se encontró ningún asset en el JSON"
+    Write-Host "ERROR: no se encontro ningun asset en el JSON"
     exit 1
 }
+
 Write-Host "Assets encontrados: $($assets.Count)"
 for ($i = 0; $i -lt $assets.Count; $i++) {
     $asset = $assets[$i]
@@ -132,15 +173,14 @@ for ($i = 0; $i -lt $assets.Count; $i++) {
 }
 
 # ==============================
-# 3. Endpoint
+# 4. Endpoint
 # ==============================
 $assetsUrl = "https://cloud.uipath.com/$org/$tenant/orchestrator_/odata/Assets"
 
 # ==============================
-# 4. Crear assets
+# 5. Crear assets
 # ==============================
 foreach ($asset in $assets) {
-
     Write-Host "Creando asset: $($asset.Name)"
 
     $payload = @{
@@ -160,7 +200,7 @@ foreach ($asset in $assets) {
     $json = $payload | ConvertTo-Json -Depth 5
 
     try {
-        Invoke-RestMethod -Method Post -Uri $assetsUrl -Headers $headers -Body $json
+        Invoke-RestMethod -Method Post -Uri $assetsUrl -Headers $assetHeaders -Body $json
         Write-Host "OK"
     }
     catch {
@@ -176,10 +216,10 @@ foreach ($asset in $assets) {
                 Write-Host "Response body: $responseBody"
             }
             catch {
-                Write-Host "No se pudo leer el response body de la excepción: $($_.Exception.Message)"
+                Write-Host "No se pudo leer el response body de la excepcion: $($_.Exception.Message)"
             }
         }
     }
 }
 
-Write-Host "🚀 Assets importados"
+Write-Host "Assets importados"

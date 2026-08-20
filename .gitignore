@@ -21,6 +21,14 @@ __pycache__/
 # VSCode
 .vscode/
 
+# Artefactos locales generados por UiPath Studio
+.local/
+.project/
+.objects/
+.screenshots/
+.settings/
+.tmh/
+
 # Archivos del sistema
 .DS_Store
 Thumbs.db
