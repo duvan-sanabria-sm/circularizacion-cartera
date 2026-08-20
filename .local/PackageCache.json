@@ -291,8 +291,8 @@
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib/net6.0-windows7.0/UiPath.Testing.Activities.Api.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib/net6.0-windows7.0/UiPath.Testing.Activities.Design.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib/net6.0-windows7.0/UiPath.Testing.Activities.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib/net6.0-windows7.0/UiPath.Testing.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib/net6.0-windows7.0/UiPath.Testing.RulesLibrary.dll"
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib/net6.0-windows7.0/UiPath.Testing.RulesLibrary.dll",
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib/net6.0-windows7.0/UiPath.Testing.dll"
       ],
       "Path": "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3"
     },
@@ -344,13 +344,13 @@
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.design.recoverypanel\\24.10.10\\lib/net6.0/UiPath.UIAutomation.Activities.Design.RecoveryPanel.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.CV.Activities.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.CV.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UiAutomation.Activities.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationCore.dll",
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationNext.API.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationNext.Activities.Contracts.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationNext.Activities.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationNext.API.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationNext.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationNext.ExternalIntegrations.dll",
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomationNext.dll",
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib/net6.0-windows7.0/UiPath.UiAutomation.Activities.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime.design\\24.10.10\\lib/net6.0-windows7.0/UiPath.UIAutomation.Activities.Runtime.Design.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.vision\\3.14.2\\lib/net6.0-windows7.0/UiPath.Vision.AzureComputerVision.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.vision\\3.14.2\\lib/net6.0-windows7.0/UiPath.Vision.Core.dll",
@@ -8124,8 +8124,8 @@
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib\\net6.0-windows7.0\\UiPath.Testing.Activities.Api.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib\\net6.0-windows7.0\\UiPath.Testing.Activities.Design.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib\\net6.0-windows7.0\\UiPath.Testing.Activities.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib\\net6.0-windows7.0\\UiPath.Testing.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib\\net6.0-windows7.0\\UiPath.Testing.RulesLibrary.dll"
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib\\net6.0-windows7.0\\UiPath.Testing.RulesLibrary.dll",
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3\\lib\\net6.0-windows7.0\\UiPath.Testing.dll"
       ],
       "Path": "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.testing.activities\\24.10.3"
     },
@@ -8161,13 +8161,13 @@
       "Assemblies": [
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.CV.Activities.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.CV.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UiAutomation.Activities.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationCore.dll",
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationNext.API.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationNext.Activities.Contracts.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationNext.Activities.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationNext.API.dll",
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationNext.ExternalIntegrations.dll",
         "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationNext.dll",
-        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UIAutomationNext.ExternalIntegrations.dll"
+        "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10\\lib\\net6.0-windows7.0\\UiPath.UiAutomation.Activities.dll"
       ],
       "Path": "C:\\Users\\duvan.sanabria\\.nuget\\packages\\uipath.uiautomation.activities.runtime\\24.10.10"
     },

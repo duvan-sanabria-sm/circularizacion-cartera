@@ -24173,9 +24173,9 @@
     "restore": {
       "projectUniqueName": "CircularizacionCartera",
       "projectName": "CircularizacionCartera",
-      "projectPath": "C:\\Users\\duvan.sanabria\\OneDrive - Servimeters\\Documentos\\Robotización\\UiPath\\robot_circularizacion-cartera\\.local",
+      "projectPath": "C:\\Users\\duvan.sanabria\\Documents\\Tablero Personal 2026\\10 🤖 Automatizaciones y Software\\Proyectos Ejecutables\\UiPath\\robot_circularizacion-cartera\\.local",
       "packagesPath": "C:\\Users\\duvan.sanabria\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\duvan.sanabria\\OneDrive - Servimeters\\Documentos\\Robotización\\UiPath\\robot_circularizacion-cartera\\.local",
+      "outputPath": "C:\\Users\\duvan.sanabria\\Documents\\Tablero Personal 2026\\10 🤖 Automatizaciones y Software\\Proyectos Ejecutables\\UiPath\\robot_circularizacion-cartera\\.local",
       "UsingMicrosoftNETSdk": false,
       "restoreAuditProperties": {
         "enableAudit": "False"
@@ -24220,7 +24220,7 @@
             "version": "[24.10.10, 24.10.10]"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\duvan.sanabria\\AppData\\Local\\Programs\\UiPath\\Studio\\PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\duvan.sanabria\\AppData\\Local\\Programs\\UiPathPlatform\\Studio\\26.0.200-cloud.24635\\SolutionPackager\\Tools\\WorkflowCompiler\\PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

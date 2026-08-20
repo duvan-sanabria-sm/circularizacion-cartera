@@ -1,7 +1,7 @@
 {
   "name": "CircularizacionCartera",
   "projectId": "00809ff4-9dda-4f56-8144-a41f7ea3bf3e",
-  "description": "Porceso de circularizacion",
+  "description": "Proceso de circularización de cartera y generación de estados de cuenta por cliente",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.24.4]",

@@ -1,49 +1,49 @@
-➡️ [Volver a la documentación principal](../README.md)
+# Requerimientos del proceso
 
-## 1. 🧩 Requerimientos Funcionales (RF)
+[Volver a la documentación principal](../../README.md)
 
-## RF-01 – Deploy de los robots en el Orquestador
+## RF-01 — Descargar reportes de NetSuite
 
-### Descripción
-Se requiere migrar los procesos (robots/proyectos) existentes en una cuenta de UiPath Orchestrator hacia una nueva cuenta de UiPath Orchestrator, asegurando que los paquetes, procesos y configuraciones asociadas queden correctamente desplegadas en el entorno destino.
+El robot debe descargar los reportes de cartera, proformas y datos de clientes requeridos para la circularización. Si falta uno de los archivos obligatorios, debe detener el procesamiento y registrar el motivo.
 
-### Entradas
-- Cuenta origen de UiPath Orchestrator
-- Cuenta destino de UiPath Orchestrator
-- Proyectos UiPath (código fuente o paquetes .nupkg)
-- Acceso al Orchestrator origen y destino
-- Credenciales o External Application
-- Repositorio Git con los proyectos
-- Azure DevOps
-- Lista de procesos a migrar
-- Estructura de carpetas (folders/subfolders)
+## RF-02 — Preparar la información de cartera
 
-### Proceso
-1. Identificar los procesos existentes en el Orchestrator origen.
-2. Exportar u obtener los proyectos UiPath.
-3. Subir los proyectos al repositorio Git.
-4. Configurar pipeline en Azure DevOps.
-5. Empaquetar los proyectos UiPath.
-6. Publicar los paquetes en el Orchestrator destino.
-7. Crear o actualizar los procesos en el Orchestrator destino.
-8. Validar que los procesos estén asociados al paquete correcto.
-9. Ejecutar pruebas de ejecución.
-10. Documentar los procesos migrados.
+El robot debe conservar los documentos con saldo pendiente, ordenar la información y agrupar facturas y proformas por cliente. Los nombres de columnas esperados deben validarse antes de procesar.
 
-### Salidas
-- Procesos desplegados en la nueva cuenta de UiPath Orchestrator.
-- Paquetes publicados en el Orchestrator destino.
-- Procesos funcionales en el folder correspondiente.
-- Registro de migración realizada.
+## RF-03 — Generar estados de cuenta
 
-### Reglas de negocio
-- Los procesos deben conservar el mismo nombre que en el Orchestrator origen.
-- Los procesos deben desplegarse en el folder correspondiente.
-- Las versiones de los paquetes deben controlarse mediante versionamiento.
-- No se deben sobrescribir procesos en producción sin validación previa.
-- Todo despliegue debe realizarse mediante pipeline.
+Para cada cliente con datos válidos, el robot debe copiar la plantilla, escribir la información en la hoja `ESTADO CUENTA`, calcular totales y aplicar el formato definido.
 
-### Prioridad
-- Alta
+## RF-04 — Enviar la circularización
 
----
+El robot debe enviar cada estado de cuenta únicamente al correo validado del cliente. Las copias, el remitente y los destinatarios de prueba deben administrarse mediante configuración, no mediante valores codificados en el workflow.
+
+## RF-05 — Registrar el resultado
+
+Cada ejecución debe registrar inicio, fin, fecha de corte, archivos descargados, clientes procesados, correos enviados y errores. Un error recuperable puede reintentarse; un error no recuperable debe propagarse con contexto.
+
+## RF-06 — Limpiar archivos temporales
+
+El robot debe eliminar solo los archivos y carpetas creados por la ejecución actual. Antes de una eliminación recursiva debe validar que la ruta se encuentre dentro de la carpeta de trabajo configurada.
+
+## RF-07 — Desplegar mediante pipeline
+
+El proyecto debe empaquetarse y desplegarse mediante Azure DevOps al folder configurado en `UIPATH_FOLDER_PATH`. Los activos requeridos deben existir o crearse en Orchestrator sin exponer secretos.
+
+## Requerimientos no funcionales
+
+- La configuración debe ser portable entre desarrollo, pruebas y producción.
+- Las credenciales y secretos no deben almacenarse en Git ni registrarse en logs.
+- El proceso debe poder ejecutarse en una máquina robot dedicada con Excel y Chrome.
+- Los workflows deben dividirse por responsabilidad y usar argumentos explícitos.
+- Los mensajes interactivos deben evitarse en ejecución no atendida.
+- Debe existir una prueba controlada sin envío y otra con un único destinatario antes de producción.
+
+## Criterios mínimos de aceptación
+
+1. Los tres reportes se descargan y validan.
+2. La cantidad de clientes de entrada se reconcilia con procesados, omitidos y fallidos.
+3. Cada archivo generado abre sin errores y contiene el cliente correcto.
+4. Los totales coinciden con los reportes fuente.
+5. Ningún correo se envía a direcciones codificadas de desarrollo.
+6. Un fallo produce un log accionable y un estado fallido en Orchestrator.
